@@ -8,7 +8,7 @@
 # Can run this script from Quartus II Tcl console, or directly :
 #  quartus_sh -t doquartus.tcl
 
-set MyProj emetteur 
+set MyProj DE2_top
 
 # ---- Load Quartus II Tcl Project package
 
@@ -66,7 +66,7 @@ if [file exists ${MyProj}.rbf]  {
   set_global_assignment -name PARTITION_COLOR 14622752 -section_id Top
   set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
   set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
-  
+
 # ---- Pin assignments
 
 # Pin & Location Assignments
