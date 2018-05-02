@@ -23,7 +23,7 @@ BEGIN
     variable i : integer;
   BEGIN
     if rst = '1' then
-      tx <= '0';
+      tx <= '1';
       tx_busy <= '0';
       reg <= (OTHERS => '0');
       i := 0;
@@ -31,6 +31,8 @@ BEGIN
     elsif rising_edge(clk)then
       case state is
         when E0 =>
+          tx <= '1';
+          tx_busy <= '0';
           if go = '1' then
             state <= E1;
           end if;
@@ -38,16 +40,15 @@ BEGIN
           reg <= '1' & din & '0';
           i := 0;
           tx_busy <= '1';
-          if tick_bit = '1' then
-            state <= E2;
-          end if;
+          state <= E2;
         when E2 =>
-          if i <= 9 and tick_bit = '1' then
-              tx <= reg(i);
-              i := i + 1;
-          end if;
-          if i > 9 then
-            state <= E3;
+          if tick_bit = '1' then
+              if i <= 9 then
+                  tx <= reg(i);
+                  i := i + 1;
+              else
+                  state <= E3;
+              end if;
           end if;
         when E3 =>
           i := 0;

@@ -30,25 +30,18 @@ begin
 
   Stim: process
   begin
-      rst <= '1';
-      wait for 10 ns;
       rst <= '0';
-      wait for 10 ns;
       baud_sel <= "00";
-      wait for 10 ns;
       go <= '1';
-      wait for 10 ns;
-      din <= "01010101";
-      wait for 10 ns;
-      go <= '0';
-      wait for 1500 us;
+      din <= "01111110";
+      wait;
   end process;
 
   test : entity work.emetteur port map(rst => rst, clk => clk, go => go, baud_sel => baud_sel, din => din, tx => tx, tx_busy => tx_busy);
 
   Check: process
   begin
-      wait for 230 us;
+      wait for 110 us;
       if tx /= '0' then
           OK <= FALSE;
       end if;

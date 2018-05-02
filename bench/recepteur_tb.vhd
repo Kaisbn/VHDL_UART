@@ -7,15 +7,20 @@ use IEEE.Std_logic_1164.all;
 
 architecture Bench of recepteur_tb is
 
-  signal clk : std_logic;
-  signal rst : std_logic;
+  -- Emetteur
+  signal rst      	: std_logic;
+  signal clk      : std_logic;
+  signal baud_sel : std_logic_vector(1 downto 0);
+  signal din      : std_logic_vector(7 downto 0);
+  signal tx_busy : std_logic;
+  signal go      : std_logic;
+
+  signal x      : std_logic;
 
   -- Recepteur
-  signal rx : std_logic;
   signal rx_error : std_logic;
   signal DAV : std_logic;
-  signal dout : std_logic_vector(9 downto 0);
-  signal clear : std_logic;
+  signal dout : std_logic_vector(7 downto 0);
 
 begin
 
@@ -32,39 +37,21 @@ begin
 
   Stim: process
   begin
-      rst <= '1';
-      wait for 10 ns;
-      rst <= '0';
-      wait for 10 ns;
-
-      rx <= '0';
-      wait for 110 us;
-      rx <= '1';
-      wait for 110 us;
-      rx <= '0';
-      wait for 110 us;
-      rx <= '1';
-      wait for 110 us;
-      rx <= '0';
-      wait for 110 us;
-      rx <= '1';
-      wait for 110 us;
-      rx <= '0';
-      wait for 110 us;
-      rx <= '1';
-      wait for 110 us;
-      rx <= '0';
-      wait for 110 us;
-      rx <= '1';
-      wait for 110 us;
+    rst <= '0';
+    baud_sel <= "00";
+    go <= '1';
+    tx_busy <= '0';
+    din <= "00000000";
+    wait;
   end process;
 
-  recept : entity work.recepteur port map(rst => rst, clk => clk, rx => rx, rx_error => rx_error, DAV => DAV, dout => dout, clear => clear);
+  recept : entity work.recepteur port map(rst => rst, clk => clk, rx => x, rx_error => rx_error, DAV => DAV, dout => dout);
+  emetteur : entity work.emetteur port map(rst => rst, clk => clk, tx => x, baud_sel => baud_sel, din => din, go => go, tx_busy => tx_busy);
 
   Check: process
   begin
-  wait for 1300 us;
-  if dout /= "1010101010" then
+  wait for 1200 us;
+  if dout /= "00000000" then
       OK <= FALSE;
   end if;
  
