@@ -93,9 +93,6 @@ BEGIN
           end if;
         when ER =>
           rx_error <= '1';
-          if rx = '1' then
-            state <= E3;
-          end if;
       end case;
     end if;
   END PROCESS;

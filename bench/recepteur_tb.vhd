@@ -28,9 +28,9 @@ begin
   begin
     while now <= 3000 us loop
       clk <= '0';
-      wait for 5 ns;
+      wait for 10 ns;
       clk <= '1';
-      wait for 5 NS;
+      wait for 10 NS;
     end loop;
     wait;
   end process;
@@ -41,7 +41,7 @@ begin
     baud_sel <= "00";
     go <= '1';
     tx_busy <= '0';
-    din <= "00000000";
+    din <= "11100110";
     wait;
   end process;
 
@@ -51,7 +51,7 @@ begin
   Check: process
   begin
   wait for 1200 us;
-  if dout /= "00000000" then
+  if dout /= "11100110" then
       OK <= FALSE;
   end if;
  
