@@ -49,18 +49,18 @@ begin
     when "0001" => output <= "1001111";
     when "0010" => output <= "0010010";
     when "0011" => output <= "0000110";
-    when "0100" => output <= "1101100";
+    when "0100" => output <= "1001100";
     when "0101" => output <= "0100100";
     when "0110" => output <= "0100000";
     when "0111" => output <= "0001111";
     when "1000" => output <= "0000000";
     when "1001" => output <= "0000100";
-    when "1010" => output <= "1110111";
-    when "1011" => output <= "0011111";
-    when "1100" => output <= "1001110";
-    when "1101" => output <= "0111101";
-    when "1110" => output <= "1001111";
-    when "1111" => output <= "1000111";
+    when "1010" => output <= "0001000";
+    when "1011" => output <= "1100000";
+    when "1100" => output <= "0110001";
+    when "1101" => output <= "1000010";
+    when "1110" => output <= "0110000";
+    when "1111" => output <= "0111000";
     when others => output <= "1111111";
   end case;
 

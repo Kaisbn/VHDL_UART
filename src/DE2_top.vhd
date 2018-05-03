@@ -10,21 +10,23 @@ ENTITY DE2_top is
 		HEX0 			:  OUT  STD_LOGIC_VECTOR(0 TO 6);
 		HEX1 			:  OUT  STD_LOGIC_VECTOR(0 TO 6);
         UART_RXD : IN STD_LOGIC;
-        LEDR : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+        UART_TXD : OUT STD_LOGIC;
+        LEDR : OUT STD_LOGIC_VECTOR(3 DOWNTO 0)
 	);
 END entity;
 
 ARCHITECTURE RTL OF DE2_top IS
 
-    signal 	rst,clk  : std_logic;
+    signal 	rst,clk, go  : std_logic;
     signal dout : std_logic_vector(7 downto 0);
 BEGIN
 
 rst <= not KEY(1);
+go <= not KEY(0);
 clk <= CLOCK_50;
 
-recepteur: entity WORK.recepteur port map (
-                   rst => rst,
+ recepteur: entity WORK.recepteur port map (
+                  rst => rst,
                    clk => clk,
                    rx =>uart_rxd,
                    rx_error => LEDR(0),
@@ -37,8 +39,8 @@ emetteur: entity WORK.emetteur port map (
                   clk => clk,
                   baud_sel => SW(9 downto 8),
                   din => SW(7 downto 0),
-                  go => KEY(0),
-                  tx => LEDR(2),
+                  go => go,
+                  tx => UART_TXD,
                   tx_busy => LEDR(3)
             );
 
