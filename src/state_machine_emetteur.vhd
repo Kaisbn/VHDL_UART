@@ -1,7 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.all; 
 
-ENTITY STATE_MACHINE IS 
+ENTITY emetteur_machine IS 
 	PORT
 	(
 		clk   :  IN  STD_LOGIC;
@@ -14,7 +14,7 @@ ENTITY STATE_MACHINE IS
 	);
 END entity;
 
-ARCHITECTURE struct OF STATE_MACHINE IS 
+ARCHITECTURE struct OF emetteur_machine IS 
 type Statetype is (E0, E1, E2, E3);
 signal state : Statetype;
 signal reg : std_logic_vector(9 downto 0);

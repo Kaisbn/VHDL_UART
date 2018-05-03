@@ -48,6 +48,7 @@ if [file exists ${MyProj}.rbf]  {
 
 # set_global_assignment -name VHDL_FILE "../src/______.vhd"
   set_global_assignment -name VHDL_FILE "../src/DE2_top.vhd"
+  set_global_assignment -name VHDL_FILE "../src/telemetre.vhd"
   set_global_assignment -name VHDL_FILE "../src/SEVEN_SEG.vhd"
   set_global_assignment -name VHDL_FILE "../src/fdiv.vhd"
   set_global_assignment -name VHDL_FILE "../src/mux41.vhd"

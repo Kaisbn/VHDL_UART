@@ -22,6 +22,6 @@ BEGIN
   FDIV: entity work.fdiv port map(rst => rst, clk => clk, Tick9us => tick1, Tick18us => tick2, Tick52us => tick3, Tick104us => tick4);
   I <= tick1 & tick2 & tick3 & tick4;
   MUX: entity work.mux41 port map(SEL => baud_sel, I => I, Y => tick_bit);
-  State: entity work.state_machine port map(rst => rst, clk => clk, tick_bit => tick_bit, din => din, tx => tx, tx_busy => tx_busy, go => go);
+  State: entity work.emetteur_machine port map(rst => rst, clk => clk, tick_bit => tick_bit, din => din, tx => tx, tx_busy => tx_busy, go => go);
   
 END architecture;
