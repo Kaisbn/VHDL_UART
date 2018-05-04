@@ -8,11 +8,11 @@ ENTITY telemetre IS
 		clk   :  IN  STD_LOGIC;
 		rst   :  IN  STD_LOGIC;
 		go    :  IN  STD_LOGIC;
-        tick1us : IN std_logic;
 		echo : IN std_logic;
         state_debug : OUT unsigned(3 downto 0);
 		trigger : OUT std_logic;
-        distance : OUT std_logic_vector(15 downto 0)
+        DAV     : OUT std_logic;
+        distance : OUT std_logic_vector(7 downto 0)
 	);
 END entity;
 
@@ -27,6 +27,7 @@ BEGIN
   BEGIN
     if rst = '1' then
       trigger <= '0';
+      DAV <= '0';
       distance <= (OTHERS => '0');
       count := 0;
       time_spent := 0;
@@ -39,6 +40,7 @@ BEGIN
             count := 0;
             time_spent := 0;
             if go = '1' then
+                DAV <= '0';
                 distance <= (OTHERS => '0');
                 trigger <= '1';
                 state <= E1;
@@ -70,8 +72,7 @@ BEGIN
             temp := (17 * time_spent) / 50000;
             distance(3 downto 0) <= std_logic_vector(To_unsigned(temp MOD 10, 4));
             distance(7 downto 4) <= std_logic_vector(To_unsigned(temp / 10 MOD 10, 4));
-            distance(11 downto 8) <= std_logic_vector(To_unsigned(temp / 100 MOD 10, 4));
-            distance(15 downto 12) <= std_logic_vector(To_unsigned(temp / 1000 MOD 10, 4));
+            DAV <= '1';
             if go = '0' then
                 state <= E0;
             end if;

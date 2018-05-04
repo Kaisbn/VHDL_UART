@@ -8,7 +8,7 @@
 # Can run this script from Quartus II Tcl console, or directly :
 #  quartus_sh -t doquartus.tcl
 
-set MyProj DE2_top
+set MyProj tele_uart_top
 
 # ---- Load Quartus II Tcl Project package
 
@@ -47,15 +47,14 @@ if [file exists ${MyProj}.rbf]  {
 # ---- Project Assignments (VHDL source files, order is IMPORTANT)
 
 # set_global_assignment -name VHDL_FILE "../src/______.vhd"
-  set_global_assignment -name VHDL_FILE "../src/DE2_top.vhd"
+  set_global_assignment -name VHDL_FILE "../src/tele_uart_top.vhd"
+  set_global_assignment -name VHDL_FILE "../src/bridge.vhd"
   set_global_assignment -name VHDL_FILE "../src/telemetre.vhd"
   set_global_assignment -name VHDL_FILE "../src/SEVEN_SEG.vhd"
   set_global_assignment -name VHDL_FILE "../src/fdiv.vhd"
   set_global_assignment -name VHDL_FILE "../src/mux41.vhd"
   set_global_assignment -name VHDL_FILE "../src/state_machine_emetteur.vhd"
   set_global_assignment -name VHDL_FILE "../src/emetteur.vhd"
-  set_global_assignment -name VHDL_FILE "../src/state_machine_recepteur.vhd"
-  set_global_assignment -name VHDL_FILE "../src/recepteur.vhd"
 
 # ---- Compiler Assignments for top
   set_project_settings -cmp $MyProj
